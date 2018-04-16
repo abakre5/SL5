@@ -1,0 +1,37 @@
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+
+
+public class ClientThread implements Runnable{
+
+	Socket clientSocket;
+	int connectionNo;
+	
+	public ClientThread(Socket clientSocket, int connectionNo) {
+		this.clientSocket = clientSocket;
+		this.connectionNo = connectionNo;
+		System.out.println("Connection " + connectionNo + " established with " + clientSocket);
+	}
+
+	public void run() {
+		try {
+			DataInputStream dataInputStream = new DataInputStream(clientSocket.getInputStream());
+			DataOutputStream daOutputStream = new DataOutputStream(clientSocket.getOutputStream());
+			while(true){
+				String input = dataInputStream.readUTF();
+				System.out.println("Client " + connectionNo + " ; " + input);
+				int n = Integer.parseInt(input);
+				if(n == 0)	break;
+				daOutputStream.writeUTF(String.valueOf(n*n));
+			}
+			dataInputStream.close();
+			daOutputStream.close();
+			clientSocket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+}

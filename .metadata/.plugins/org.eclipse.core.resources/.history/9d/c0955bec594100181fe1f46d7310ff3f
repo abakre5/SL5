@@ -1,0 +1,8 @@
+import java.net.Socket;
+
+
+public class Client {
+
+	Socketket socket = new Socket("localhost", 2121);
+	
+}

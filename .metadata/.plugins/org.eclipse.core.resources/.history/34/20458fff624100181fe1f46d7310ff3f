@@ -1,0 +1,11 @@
+import java.net.Socket;
+
+
+public class ClientThread {
+
+	Socket clientSocket;
+	public ClientThread(Socket clientSocket, int connectionNo) {
+
+	}
+
+}

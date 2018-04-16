@@ -1,0 +1,9 @@
+import java.net.Socket;
+
+
+public class Client throws Exception{
+
+	Socket socket = new Socket("localhost", 2121);
+	
+	
+}
