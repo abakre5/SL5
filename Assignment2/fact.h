@@ -19,7 +19,7 @@ struct intpair {
 };
 typedef struct intpair intpair;
 
-#define FACT_PROG 0x23451111
+#define FACT_PROG 0x14314345
 #define FACT_VERS 1
 
 #if defined(__STDC__) || defined(__cplusplus)

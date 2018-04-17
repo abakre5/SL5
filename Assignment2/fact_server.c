@@ -9,17 +9,12 @@
 int *
 fact_1_svc(intpair *argp, struct svc_req *rqstp)
 {
-	static int result,n,fact;
-int i;
-n=argp->a;
-// factorial logic
-fact = 1;
-printf("\n Received : n= %d \n",n);
-for (i=n;i>0;i--)
-{
-fact=fact * i;
-}
-result=fact;
+	static int  result, n, fact = 1;
+
+	int i;
+	n = argp->a;
+	printf("Recieved %d", n);
+	result = n*n;
 
 	return &result;
 }

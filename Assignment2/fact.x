@@ -1,8 +1,8 @@
 struct intpair{
-int a;	
+int a;
 };
 program FACT_PROG{
 version FACT_VERS{
 int FACT(intpair) = 1;
 } = 1;
-} = 0x23451111;
+} = 0x14314345;

@@ -10,11 +10,6 @@ int main(int argc, char **argv) {
 	char portName[MPI_MAX_PORT_NAME], str[50], ch;
 	int i;
 
-	if (argc < 2) {
-		printf("Server Port name Required\n");
-		exit(EXIT_FAILURE);
-	}
-
 	MPI_Init(&argc, &argv);
 	strcpy(portName, argv[1]);
 	MPI_Comm_connect(portName, MPI_INFO_NULL, 0, MPI_COMM_WORLD, &server);

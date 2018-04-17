@@ -1,0 +1,10 @@
+Room1 2
+Room2 2
+Room3 4
+Room4 4
+Room5 4
+Room6 4
+Room7 6
+Room8 6
+Room9 8
+Room10 8

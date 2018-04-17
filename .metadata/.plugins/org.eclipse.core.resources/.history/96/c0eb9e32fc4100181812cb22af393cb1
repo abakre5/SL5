@@ -1,0 +1,30 @@
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Mapper;
+
+
+public class ClicksPerMonth{
+
+	static IntWritable intWritable = new IntWritable(1);
+
+	public static class ClicksPerIpMap extends Mapper<LongWritable, Text , Text, IntWritable>{
+		Text mapKey = new Text();
+		
+		public void map(LongWritable key, Text value, Context context){
+			String line = value.toString();
+			String[] data = line.trim().split("/");
+			if(data.length > 1){
+				String month = data[1];
+				mapKey.set(month);
+				context.write(mapKey, ONE);
+			}
+		}
+		
+	}
+	
+	public static void main(String args[]){
+		
+	}
+	
+}
