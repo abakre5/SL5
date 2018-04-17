@@ -1,0 +1,15 @@
+17:41:02 **** Build of configuration Release for project Assignment4_square ****
+make all 
+Building file: ../src/Assignment4_square.c
+Invoking: GCC C Compiler
+gcc -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/Assignment4_square.d" -MT"src/Assignment4_square.d" -o "src/Assignment4_square.o" "../src/Assignment4_square.c"
+Finished building: ../src/Assignment4_square.c
+ 
+Building target: Assignment4_square
+Invoking: GCC C Linker
+gcc  -o "Assignment4_square"  ./src/Assignment4_square.o   
+Finished building target: Assignment4_square
+ 
+17:41:05 **** Incremental Build of configuration Release for project Assignment4_square ****
+make all 
+make: Nothing to be done for `all'.

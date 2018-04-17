@@ -1,0 +1,77 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.conf.Configured;
+import org.apache.hadoop.fs.FileStatus;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
+import org.apache.hadoop.util.Tool;
+import org.apache.hadoop.util.ToolRunner;
+
+public class MaxCount extends Configured implements Tool{
+	
+	public static void main(String args[]) throws Exception{
+		System.exit(ToolRunner.run(new Configuration(), new MaxCount(), args));
+	}
+	
+	public int run(String args[]) throws Exception{
+		Configuration configuration = getConf();
+		Job job = new Job(configuration, "MaxCount");
+		
+		job.setJarByClass(MaxCount.class);
+
+		job.setMapperClass(MaxMap.class);
+		
+		job.setNumReduceTasks(0);
+		
+		job.setMapOutputKeyClass(Text.class);
+		job.setMapOutputValueClass(IntWritable.class);
+		
+		job.setInputFormatClass(TextInputFormat.class);
+		job.setOutputFormatClass(TextOutputFormat.class);
+
+		FileInputFormat.setInputPaths(job, new Path(args[0]));
+		FileOutputFormat.setOutputPath(job, new Path(args[1]));
+		
+		Path path = new Path(args[1]);
+		path.getFileSystem(configuration).delete(path, true);
+		job.waitForCompletion(true);
+		
+		FileSystem fileSystem = FileSystem.get(configuration);
+		FileStatus[] status = fileSystem.listStatus(path);
+		
+		for (int i = 0; i < status.length; i++) {
+			System.out.println(status[i].getPath());
+			fileSystem.copyToLocalFile(false, status[i].getPath(), new Path("/home/hduser/" + args[1]));
+		}
+		
+		System.out.println("\nLine\tFirst\tSecond\tMax");
+		
+		Scanner scanner = new Scanner(new File("/home/hduser/" + args[1]));
+		List<Integer> max_values =  new ArrayList<Integer>();
+		while(scanner.hasNext()){
+			scanner.next();
+			scanner.next();
+			scanner.next();
+			max_values.add(Integer.parseInt(scanner.next()));
+		}
+		int max = 0;
+		for(int m : max_values){
+			if(m > max)
+				max = m;
+		}
+		System.out.println("Overall Max is " + max);
+		scanner.close();
+		return 0;
+	}
+	
+}

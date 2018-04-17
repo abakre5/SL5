@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "mpi.h"
+
+int main(int argc, char **argv) {
+
+	MPI_Comm client;
+	MPI_Status status;
+
+	char portName[MPI_MAX_PORT_NAME];
+	int i = 0, j, size, ch, n;
+
+	MPI_Init(&argc, &argv);
+	MPI_Comm_size(MPI_COMM_WORLD, &size);
+
+	MPI_Open_port(MPI_INFO_NULL, portName);
+	printf("Server available on port %s\n", portName);
+
+	while (1) {
+		MPI_Comm_accept(portName, MPI_INFO_NULL, 0, MPI_COMM_WORLD, &client);
+		while (1) {
+			MPI_Recv(&ch, 1, MPI_CHAR, MPI_ANY_SOURCE, MPI_ANY_TAG, client,
+					&status);
+			switch (status.MPI_TAG) {
+			case 0:
+				MPI_Comm_free(&client);
+				MPI_Close_port(portName);
+				MPI_Finalize();
+				return 0;
+			case 1:
+				printf("Recieved String :: %d", n);
+				printf("\nReversed string is : %d\n", n*n);
+					MPI_Send(&n, 1, MPI_INT, 0, 2, client);
+				MPI_Send(&ch, 1, MPI_CHAR, 0, 1, client);
+				MPI_Comm_disconnect(&client);
+				break;
+			case 2:
+				printf("Recieved Char :: %c\n", ch);
+				str[i++] = ch;
+				str[i] = '\0';
+				break;
+			}
+		}
+	}
+
+	return 0;
+}

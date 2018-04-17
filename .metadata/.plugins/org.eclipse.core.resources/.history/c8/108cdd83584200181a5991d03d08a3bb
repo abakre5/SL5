@@ -1,0 +1,24 @@
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Mapper;
+
+
+public class MaxMap extends Mapper<LongWritable, Text, Text, IntWritable>{
+
+	int values[] = new int[10000];
+	int values1[] = new int[10000];
+	String word[];
+	int maxVal = 0, linenum = 0;
+	
+	public void map(LongWritable key, Text values, Context context){
+		String words = values.toString();
+		System.out.println(words);
+		word = words.split(",");
+		for (int i = 0; i < 2; i++) {
+			System.out.println(word[i]);
+			values[i] = Integer.parseInt(word[i]);
+		}
+	}
+	
+}

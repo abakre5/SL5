@@ -1,0 +1,40 @@
+/*
+ ============================================================================
+ Name        : Assignment4_square.c
+ Author      : 
+ Version     :
+ Copyright   : Your copyright notice
+ Description : Hello World in C, Ansi-style
+ ============================================================================
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "mpi.h"
+
+int main(int argc, char **argv) {
+
+	MPI_Status status;
+	MPI_Comm server;
+
+	char portName[MPI_MAX_PORT_NAME];
+	int n;
+
+	MPI_Init(&argc, &argv);
+	MPI_Comm_connect(portName,MPI_INFO_NULL, 0, MPI_COMM_WORLD, &server);
+
+	printf("Enter Integer :: ");
+	scanf("%d", &n);
+
+	MPI_Send(&n, 1, MPI_INT, 0, 2, server);
+
+	while(1){
+		MPI_Recv(&n, 1, MPI_CHAR, MPI_ANY_SOURCE, MPI_ANY_TAG, server, &status);
+		if(status.MPI_TAG == 2){
+			printf("\nSquare is %s\n", n);
+		}
+		else break;
+	}
+
+	return EXIT_SUCCESS;
+}

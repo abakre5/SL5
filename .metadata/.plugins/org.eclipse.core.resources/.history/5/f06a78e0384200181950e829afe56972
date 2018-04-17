@@ -1,0 +1,22 @@
+/*
+ ============================================================================
+ Name        : Assignment4_square.c
+ Author      : 
+ Version     :
+ Copyright   : Your copyright notice
+ Description : Hello World in C, Ansi-style
+ ============================================================================
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+
+	MPI_Status status;
+	MPI_Comm server;
+
+	char portName[];
+
+	return EXIT_SUCCESS;
+}

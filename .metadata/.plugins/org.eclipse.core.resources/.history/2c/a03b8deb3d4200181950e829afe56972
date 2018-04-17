@@ -1,0 +1,42 @@
+/*
+ ============================================================================
+ Name        : Assignment4_square.c
+ Author      : 
+ Version     :
+ Copyright   : Your copyright notice
+ Description : Hello World in C, Ansi-style
+ ============================================================================
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "mpi.h"
+
+int main(int argc, char **argv) {
+
+	MPI_Status status;
+	MPI_Comm server;
+
+	char portName[MPI_MAX_PORT_NAME], str[50], ch;
+	int i;
+
+	MPI_Init(&argc, &argv);
+	strcpy(portName, argv[1]);
+	MPI_Comm_connect(portName, MPI_INFO_NULL, 0, MPI_COMM_WORLD, &server);
+
+	printf("\nEnter the number whose factorial to be :\n");
+	scanf("%s", str);
+
+	for (i = 0; i < strlen(str); i++) {
+		if (str[i] != '\0')
+			ch = str[i];
+		MPI_Send(&ch, 1, MPI_CHAR, 0, 2, server);
+	}
+	MPI_Send(&i, 0, MPI_INT, 0, 1, server);
+	MPI_Recv(&i, 1, MPI_INT, MPI_ANY_SOURCE, MPI_ANY_TAG, server, &status);
+	printf("\Factorial is : %d\n", i);
+	MPI_Comm_disconnect(&server);
+	MPI_Finalize();
+
+	return EXIT_SUCCESS;
+}

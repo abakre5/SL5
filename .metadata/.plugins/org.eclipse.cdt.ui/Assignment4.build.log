@@ -1,0 +1,19 @@
+17:39:19 **** Incremental Build of configuration Release for project Assignment4 ****
+make all 
+Building file: ../src/Assignment4.c
+Invoking: GCC C Compiler
+gcc -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/Assignment4.d" -MT"src/Assignment4.d" -o "src/Assignment4.o" "../src/Assignment4.c"
+Finished building: ../src/Assignment4.c
+ 
+Building file: ../src/Client.c
+Invoking: GCC C Compiler
+gcc -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/Client.d" -MT"src/Client.d" -o "src/Client.o" "../src/Client.c"
+In file included from ../src/Client.c:3:0:
+../src/mpi.h:253:39: fatal error: mpi_portable_platform.h: No such file or directory
+ #    include "mpi_portable_platform.h"
+                                       ^
+compilation terminated.
+make: *** [src/Client.o] Error 1
+
+17:39:19 Build Finished (took 252ms)
+
