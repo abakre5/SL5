@@ -1,0 +1,14 @@
+import java.io.Serializable;
+
+
+public class Room implements Serializable{
+
+	public static final int days = 7;
+	public static final int hours = 12;
+	
+	int slot[][] = new int[days][hours];
+	int roomNumber;
+	
+	
+	
+}

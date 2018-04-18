@@ -46,7 +46,7 @@ public class WordCount{
 	public static void main(String args[]) throws IOException, ClassNotFoundException, InterruptedException{
 		
 		Configuration configuration = new Configuration();
-		Job job = Job.getInstance(configuration, "ClicksPerIP");
+		Job job = Job.getInstance(configuration, "WordCount");
 		
 		job.setJarByClass(WordCount.class);
 		

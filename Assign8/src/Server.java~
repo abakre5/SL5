@@ -1,0 +1,29 @@
+import java.rmi.AccessException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class Server extends UnicastRemoteObject implements RoomBookingInterface {
+
+	private static final long serialVersionUID = 1L;
+	public static final int MAX_ROOMS = 10;
+	List<Room> roomList = new ArrayList<Room>();
+	
+	protected Server() throws RemoteException {
+		super();
+	}
+
+	public void init() throws RemoteException {
+		for (int i = 0; i < MAX_ROOMS; i++) 
+			new Room();
+	}
+	
+	public static void main(String[] args) throws AccessException, RemoteException {
+		LocateRegistry.createRegistry(7889).rebind("HotelBS", new Server());
+		System.out.println("Booking Server is ON ...");
+	}
+
+}

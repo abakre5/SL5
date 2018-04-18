@@ -22,7 +22,7 @@ fact_prog_1(char *host, int a)									//CHANGE
 	}
 #endif	/* DEBUG */
 
-	fact_1_arg.a=a;										//CHANGE
+	fact_1_arg.a=a;									//CHANGE
 
 	result_1 = fact_1(&fact_1_arg, clnt);
 	if (result_1 == (int *) NULL) {
@@ -49,7 +49,7 @@ main (int argc, char *argv[])									//CHANGE
 	host = argv[1];
 	do{
 		printf("Enter No :: ");
-		scanf("%d", &a);
+		scanf("%d", &a);								//CHANGE
 		fact_prog_1(host, a);
 		printf("\n1/0 :: ");
 		scanf("%d", &ch);

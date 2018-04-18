@@ -1,0 +1,19 @@
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class Server extends UnicastRemoteObject implements RoomBookingInterface {
+
+	List<Room> roomList = new ArrayList<Room>();
+	
+	protected Server() throws RemoteException {
+		super();
+	}
+
+	public void init() throws RemoteException {
+		
+	}
+
+}
